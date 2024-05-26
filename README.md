@@ -1,1 +1,26 @@
-# smart_recipe
+# smart recipe
+
+# Motivation
+My mom often feels troubled when thinking about what dishes to cook. At the same time, there is a widely recognized concept in traditional Chinese medicine regarding food incompatibility. I want to develop a large model that can recommend recipes while also considering the properties of different foods.
+
+# Model
+`Llama-3-Chinese-8B-Instruct-v2-GGUF` is an LLM tuned on `Meta-Llama-3-8B-Instruct`, which can be used for conversation, QA, etc.
+https://huggingface.co/hfl/llama-3-chinese-8b-instruct-v2
+
+# Timeline
+
+
+| Week                | Tasks             |
+|---------------------|--------------------|
+| Week 0 | Come up with a project idea and timeline |
+| Week 1 | Research on food related datasets |
+| Week 2 | Turn llama-3-chinese to llamafile |
+| Week 3 | Test customized llamafile's performance |
+| Week 4 | Collect and preprocess food related data |
+| Week 5 | Combine food related data to the local model (RAG maybe?)|
+| Week 6 + week 7 | Test the model's performance and start frontend backend development |
+| Week 8 | Dorkerize |
+| Week 9 | Final test and wrap up |
+| week 10 | Documentations and presentation |
+
+
