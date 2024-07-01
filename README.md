@@ -23,4 +23,9 @@ https://huggingface.co/hfl/llama-3-chinese-8b-instruct-v2
 | Week 9 | Final test and wrap up |
 | week 10 | Documentations and presentation |
 
+# Resources
+## convert gguf files to llamafile
+```
+$ ./llamafile-0.8.8/bin/llamafile-convert Llama3-8B-Chinese-Chat-q8_0-v2_1.gguf
+```
 
