@@ -28,4 +28,8 @@ https://huggingface.co/hfl/llama-3-chinese-8b-instruct-v2
 ```
 $ ./llamafile-0.8.8/bin/llamafile-convert Llama3-8B-Chinese-Chat-q8_0-v2_1.gguf
 ```
+## Run llamafile (langchain api)
+```
+$ ./Llama3-8B-Chinese-Chat-q8_0-v2_1.llamafile -c 2048 --server --nobrowser
+```
 
