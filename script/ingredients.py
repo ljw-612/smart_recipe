@@ -30,7 +30,7 @@ def insert_ingredient(database_name, name, amount):
 if __name__ == "__main__":
     database_name = "../data/ingredients.db"
     
-    test_ingredient = [("面粉", 2.5), ("糖", 1.5), ("鸡蛋", 3), ("茄子", 500), 
+    test_ingredient = [("面粉", 250), ("糖", 200), ("鸡蛋", 300), ("茄子", 500), 
                        ("猪肉", 500), ("鸡肉", 500), ("牛肉", 500), ("羊肉", 500)]
     
     if not check_db_exists(database_name):

@@ -48,12 +48,15 @@ def app():
             if st.button("Accept this Recipe"):
                 st.success("Recipe accepted!")
                 st.success("Ingredients removed from the database....")
+                print(st.session_state['generated_recipe'])
                 remove_ingredients(st.session_state['generated_recipe'], ingredients_db_path)
                 st.session_state['generated_recipe'] = ""  # Reset recipe
                 st.dataframe(fetch_db(ingredients_db_path))
         with col2:
             if st.button("Regenerate"):
                 st.session_state['generated_recipe'] = generate_recipe(query)
+                st.experimental_rerun()
+                # print("re generated recipe: ", st.session_state['generated_recipe'])
 
 
 def generate_recipe_callback(query):
