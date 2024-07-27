@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores.utils import DistanceStrategy
 from langchain_community.agent_toolkits import create_sql_agent
 from langchain_community.chat_models import ChatOpenAI
 from langchain_community.utilities.sql_database import SQLDatabase
@@ -38,7 +37,7 @@ def fetch_ingredients_content(db_path):
 def fetch_food_incompatibilities_content(db_path, aviailable_ingredients, k=5):
     EMBEDDING_MODEL_NAME = "thenlper/gte-small"
     embedding_model = HuggingFaceEmbeddings(
-        model_name="../model/gte-small",
+        model_name="../embedding_model/gte-small",
         # multi_process=True,
         # model_kwargs={"device": "cuda"},
         encode_kwargs={"normalize_embeddings": True},  # Set `True` for cosine similarity

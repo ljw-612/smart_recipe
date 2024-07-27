@@ -1,0 +1,7 @@
+model/
+demo/
+*.pdf
+*.pptx
+~$*.pptx
+__pycache__/
+*.ipynb
