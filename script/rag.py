@@ -44,6 +44,7 @@ MARKDOWN_SEPARATORS = [
 
 EMBEDDING_MODEL_NAME = "thenlper/gte-small"
 
+
 def extract_text(pdf_files):
     """
     Function to extract the text from a PDF file
@@ -67,7 +68,7 @@ def extract_text(pdf_files):
         # Extract the text from the PDF pages and add it to the raw text variable
         for page in pdf_reader.pages:
             text += page.extract_text()
-    
+
     return text
 
 
@@ -102,9 +103,14 @@ def split_documents(
 
     return docs_processed_unique
 
-def get_vector_db(raw_text: str,):
+
+def get_vector_db(
+    raw_text: str,
+):
     RAW_KNOWLEDGE_BASE = [
-        LangchainDocument(page_content=raw_text, metadata={"source":"food imcompatibility"})
+        LangchainDocument(
+            page_content=raw_text, metadata={"source": "food imcompatibility"}
+        )
     ]
     docs_processed = split_documents(
         512,  # We choose a chunk size adapted to our model
@@ -115,7 +121,9 @@ def get_vector_db(raw_text: str,):
         model_name=EMBEDDING_MODEL_NAME,
         # multi_process=True,
         # model_kwargs={"device": "cuda"},
-        encode_kwargs={"normalize_embeddings": True},  # Set `True` for cosine similarity
+        encode_kwargs={
+            "normalize_embeddings": True
+        },  # Set `True` for cosine similarity
     )
     KNOWLEDGE_VECTOR_DATABASE = FAISS.from_documents(
         docs_processed, embedding_model, distance_strategy=DistanceStrategy.COSINE
@@ -123,24 +131,17 @@ def get_vector_db(raw_text: str,):
     return KNOWLEDGE_VECTOR_DATABASE
 
 
-def answer_with_rag(
-    query: str,
-    db: FAISS,
-    client: OpenAI,
-    k=2
-):
+def answer_with_rag(query: str, db: FAISS, client: OpenAI, k=2):
     retrieved_docs = db.similarity_search(query=query, k=k)
     print(
         "\n==================================Top document=================================="
     )
     print(retrieved_docs[0].page_content)
-    
-    retrieved_docs_text = [
-        doc.page_content for doc in retrieved_docs
-    ]
+
+    retrieved_docs_text = [doc.page_content for doc in retrieved_docs]
     context = "\nExtracted documents:\n"
     context += "".join(
-            [f"Document {str(i)}:::\n" + doc for i, doc in enumerate(retrieved_docs_text)]
+        [f"Document {str(i)}:::\n" + doc for i, doc in enumerate(retrieved_docs_text)]
     )
     RAG_PROMPT_TEMPLATE = [
         {
@@ -156,15 +157,16 @@ def answer_with_rag(
     ---
     Now here is the question you need to answer.
 
-    Question: {question}""".format(context=context, question=query),
+    Question: {question}""".format(
+                context=context, question=query
+            ),
         },
     ]
-    
+
     gc.collect()
-    
+
     completion = client.chat.completions.create(
-        model="LLaMA_CPP",
-        messages=RAG_PROMPT_TEMPLATE
+        model="LLaMA_CPP", messages=RAG_PROMPT_TEMPLATE
     )
     # answer = completion.choices[0].message.content
     print(completion.choices[0].message)
@@ -175,19 +177,13 @@ if __name__ == "__main__":
     raw_text = extract_text(pdf_files=["../data/data.pdf"])
 
     KNOWLEDGE_VECTOR_DATABASE = get_vector_db(raw_text)
-    
-    client = OpenAI(
-        base_url="http://127.0.0.1:8080/v1",
-        api_key=openai_api_key
-    )
-    
+
+    client = OpenAI(base_url="http://127.0.0.1:8080/v1", api_key=openai_api_key)
+
     query = "鲫鱼最好不和什么一起吃？"
-    
+
     answer = answer_with_rag(
         query=query,
         db=KNOWLEDGE_VECTOR_DATABASE,
         client=client,
     )
-    
-    
-    

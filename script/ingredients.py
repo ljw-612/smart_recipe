@@ -1,8 +1,10 @@
 import os
 import sqlite3
 
+
 def check_db_exists(database_name):
     return os.path.exists(database_name)
+
 
 def create_database(database_name):
     conn = sqlite3.connect(database_name)
@@ -12,12 +14,14 @@ def create_database(database_name):
     )
     if c.fetchone()[0] == 0:
         c.execute(
-            '''CREATE TABLE ingredients 
+            """CREATE TABLE ingredients 
             (id INTEGER PRIMARY KEY, 
             name TEXT, 
-            amount REAL)''')
+            amount REAL)"""
+        )
     conn.commit()
     print("Table created.")
+
 
 def insert_ingredient(database_name, name, amount):
     conn = sqlite3.connect(database_name)
@@ -29,13 +33,21 @@ def insert_ingredient(database_name, name, amount):
 
 if __name__ == "__main__":
     database_name = "../data/ingredients.db"
-    
-    test_ingredient = [("面粉", 250), ("糖", 200), ("鸡蛋", 300), ("茄子", 500), 
-                       ("猪肉", 500), ("鸡肉", 500), ("牛肉", 500), ("羊肉", 500)]
-    
+
+    test_ingredient = [
+        ("面粉", 250),
+        ("糖", 200),
+        ("鸡蛋", 300),
+        ("茄子", 500),
+        ("猪肉", 500),
+        ("鸡肉", 500),
+        ("牛肉", 500),
+        ("羊肉", 500),
+    ]
+
     if not check_db_exists(database_name):
         print("Creating database...")
-    
+
         create_database(database_name)
         print("Inserting ingredients...")
         for ingredient in test_ingredient:
@@ -44,4 +56,3 @@ if __name__ == "__main__":
         print("Inserting ingredients...")
         for ingredient in test_ingredient:
             insert_ingredient(database_name, ingredient[0], ingredient[1])
-    

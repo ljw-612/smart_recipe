@@ -26,6 +26,18 @@ jobs:
         pip install black
         pip install black[jupyter]
         black --check .
+      continue-on-error: true
+
+    - name: Format code and push changes
+      if: steps.black.outcome == 'failure'
+      run: |
+        black .
+        git config --global user.name 'github-actions'
+        git config --global user.email 'github-actions@github.com'
+        git add .
+        git commit -m 'Format code using black'
+        git push origin main
+      continue-on-error: true
 
     - name: Lint code
       run: |
