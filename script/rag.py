@@ -1,6 +1,5 @@
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
-from sklearn.metrics.pairwise import cosine_similarity
 
 from langchain.docstore.document import Document as LangchainDocument
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -14,11 +13,8 @@ from openai import OpenAI
 import os
 from dotenv import load_dotenv
 
-from tqdm.notebook import tqdm
 import pandas as pd
-from typing import Optional, List, Tuple
-from datasets import Dataset
-import matplotlib.pyplot as plt
+from typing import Optional, List
 
 import gc
 
