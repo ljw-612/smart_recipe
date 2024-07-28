@@ -22,7 +22,10 @@ def fetch_db(ingredients_db_path):
     return df
 
 def app():
-    ingredients_db_path = "../data/ingredients.db"
+    current_dir = os.getcwd()
+    ingredients_db_path = os.path.join(current_dir, "data", "ingredients.db")
+    print(f"Ingredients DB Path: {ingredients_db_path}")
+    # ingredients_db_path = "../data/ingredients.db"
     
     
     query = "请你根据我现有的食材以及食材数量，推荐【一道菜】。告诉我所需食材以及相对应的克数。"

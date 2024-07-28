@@ -1,4 +1,4 @@
-From pyhon:3.8-slim
+From python:3.8-slim
 
 WORKDIR /app
 
@@ -6,7 +6,7 @@ COPY requirements.txt /app/
 
 # install dependencies
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
 # copy everything to the working directory
 COPY . /app/

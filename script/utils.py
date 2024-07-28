@@ -34,16 +34,18 @@ def fetch_ingredients_content(db_path):
     
     return context, available_ingredients
 
-def fetch_food_incompatibilities_content(db_path, aviailable_ingredients, k=5):
+def fetch_food_incompatibilities_content(emb_model_path, db_path, aviailable_ingredients, k=5): 
     EMBEDDING_MODEL_NAME = "thenlper/gte-small"
     embedding_model = HuggingFaceEmbeddings(
-        model_name="../embedding_model/gte-small",
+        model_name=emb_model_path,
+        # model_name="../embedding_model/gte-small",
         # multi_process=True,
         # model_kwargs={"device": "cuda"},
         encode_kwargs={"normalize_embeddings": True},  # Set `True` for cosine similarity
     )
     KNOWLEDGE_VECTOR_DATABASE = FAISS.load_local(
-        "../data/food_incomp",
+        db_path,
+        # "../data/food_incomp",
         embeddings=embedding_model,
         allow_dangerous_deserialization=True,
     )
@@ -134,14 +136,18 @@ def remove_ingredients(dish, ingredients_db_path):
     print("Ingredients removed successfully.")
 
 def get_dish(query):
-    ingredients_db_path = "../data/ingredients.db"
-    food_incompatibilities_db_path = "../data/food_incomp"
+    current_dir = os.getcwd()
+    ingredients_db_path = os.path.join(current_dir, "data", "ingredients.db")
+    food_incompatibilities_db_path = os.path.join(current_dir, "data", "food_incomp")
+    emb_model_path = os.path.join(current_dir, "embedding_model", "gte-small")
+    # ingredients_db_path = "../data/ingredients.db"
+    # food_incompatibilities_db_path = "../data/food_incomp"
     
     print("Fetching ingredients content...\n")
     ingredients_context, available_ingredients = fetch_ingredients_content(ingredients_db_path)
     
     print("Fetching food incompatibilities content...\n")
-    incompatibitlies_context = fetch_food_incompatibilities_content(food_incompatibilities_db_path, available_ingredients)
+    incompatibitlies_context = fetch_food_incompatibilities_content(emb_model_path, food_incompatibilities_db_path, available_ingredients)
     
     print("Recommend dish...\n")
     dish = recommend_dish(query, ingredients_context, available_ingredients, incompatibitlies_context)
@@ -151,12 +157,13 @@ def get_dish(query):
 def main(query):
     ingredients_db_path = "../data/ingredients.db"
     food_incompatibilities_db_path = "../data/food_incomp"
+    emb_model_path = "../embedding_model/gte-small"
     
     print("Fetching ingredients content...\n")
     ingredients_context, available_ingredients = fetch_ingredients_content(ingredients_db_path)
     
     print("Fetching food incompatibilities content...\n")
-    incompatibitlies_context = fetch_food_incompatibilities_content(food_incompatibilities_db_path, available_ingredients)
+    incompatibitlies_context = fetch_food_incompatibilities_content(emb_model_path, food_incompatibilities_db_path, available_ingredients)
     
     print("Recommend dish...\n")
     dish = recommend_dish(query, ingredients_context, available_ingredients, incompatibitlies_context)
