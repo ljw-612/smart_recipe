@@ -36,3 +36,4 @@ $ ./Llama3-8B-Chinese-Chat-q8_0-v2_1.llamafile -c 2048 --server --nobrowser
 docker build -t smart-recipe .
 docker run -p 8501:8501 smart-recipe  
 
+# References
