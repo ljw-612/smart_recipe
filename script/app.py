@@ -67,7 +67,7 @@ def app():
         with col2:
             if st.button("Regenerate"):
                 st.session_state["generated_recipe"] = generate_recipe(query)
-                st.experimental_rerun()
+                st.rerun()
 
     st.write("### Add New Ingredient to the Database")
     new_ingredient = st.text_input("Ingredient Name")

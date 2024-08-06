@@ -124,6 +124,7 @@ def remove_ingredients(dish, ingredients_db_path):
     db = SQLDatabase.from_uri("sqlite:///" + ingredients_db_path)
     llm = ChatOpenAI(
         model="gpt-3.5-turbo",
+        # model="gpt-4o",
         api_key=openai_api_key,
     )
 
@@ -136,8 +137,8 @@ def remove_ingredients(dish, ingredients_db_path):
 
     agent_executor.invoke(
         {
-            "input": """根据菜谱，从数据库中移除被使用的材料以及相应的数量。
-                    菜谱：{dish}""".format(
+            "input": """根据菜谱，从数据库中移除被使用的材料以及相应的数量。          
+            菜谱：{dish}""".format(
                 dish=dish
             ),
         }

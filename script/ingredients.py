@@ -38,7 +38,6 @@ def insert_ingredient(database_name, name, amount):
         )
     conn.commit()
     conn.close()
-    # print((name, amount), "Ingredient inserted.")
 
 
 if __name__ == "__main__":
