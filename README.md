@@ -1,5 +1,5 @@
 # smart recipe
-![CI](https://github.com/ljw-612/smart-recipe/workflows/CI/badge.svg)
+![CI](https://github.com/ljw-612/smart_recipe/workflows/CI/badge.svg)
 
 # Motivation
 My mom often feels troubled when thinking about what dishes to cook. At the same time, there is a widely recognized concept in traditional Chinese medicine regarding food incompatibility. I want to develop a large model that can recommend recipes while also considering the properties of different foods.
