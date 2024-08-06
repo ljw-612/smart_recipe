@@ -74,7 +74,7 @@ def app():
     new_quantity = st.number_input("Quantity (in grams)", step=1)
 
     if st.button("Add Ingredient"):
-        if new_ingredient and new_quantity > 0:
+        if new_ingredient:
             insert_ingredient(ingredients_db_path, new_ingredient, new_quantity)
             st.success(
                 f"Added {new_ingredient} ({new_quantity} grams) to the database."

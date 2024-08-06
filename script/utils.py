@@ -43,7 +43,8 @@ def fetch_food_incompatibilities_content(
 ):
     EMBEDDING_MODEL_NAME = "thenlper/gte-small"
     embedding_model = HuggingFaceEmbeddings(
-        model_name=emb_model_path,
+        model_name=EMBEDDING_MODEL_NAME,
+        # model_name=emb_model_path,
         # model_name="../embedding_model/gte-small",
         # multi_process=True,
         # model_kwargs={"device": "cuda"},

@@ -2,7 +2,7 @@
 ![CI](https://github.com/ljw-612/smart_recipe/actions/workflows/main.yml/badge.svg)
 
 ## Final Demo Video
-[Watch the final demo video here]()
+[Watch the final demo video here](https://youtu.be/7OjtJsPDdvo)
 
 ## Project Purpose:
 My mom often feels troubled when thinking about what dishes to cook. At the same time, there is a widely recognized concept in traditional Chinese medicine regarding food incompatibility. I want to develop a large model that can recommend recipes while also considering the properties of different foods.
@@ -26,30 +26,34 @@ $ ./Llama3-8B-Chinese-Chat-q8_0-v2_1.llamafile --server --nobrowser
 ### Part2 - Application download
 5. Login to your Docker.
 6. Click on the `Packages` on the right of the repo's main page(https://github.com/ljw-612/smart_recipe).
-I am on macos with apple silicon, I run the following command to pull the image:
-```
-$ docker pull ghcr.io/ljw-612/smart-recipe:8677da68bd71e74dd0b00a0a9832a25cab7cfeca@sha256:f4020b61c979a5712694457c1917e52970c2177da9d5d6be143f4d91100a46de
-```
+pull the image according to the system you are using.
 7. Run the following command to start the container:
 ```bash
-$ docker run --platform linux/amd64 --rm -it -p 8501:8501 -d --name smart-recipe IMAGE ID
+$ docker run --network host -it --name smart-recipe IMAGE ID /bin/bash
+$ streamlit run script/app.py
 ```
 Replace the `IMAGE ID` with the image id you just pulled. You can find the image id by running the following command:
 ```bash
 $ docker images
 ```
-8. Open your browser and go to `http://localhost:8501/`. You should see the following interface:
+8. Open the `Network URL` in the browser. You should see the following interface:
 ![UI](images/UI.png)
 
+### Local[optional]
+```bash
+$ docker build -t smart-recipe .
+$ docker run --network host -it smart-recipe /bin/bash
+$ streamlit run script/app.py
+```
+Open the `Network URL` in the browser.
 
-### Example
+
+### Usage
 
 The project has the following features:
 - By clicking the `Generate a Recipe for Me`, the system would generate a recipe for you based on the available ingredients and Chinese food incompatibility concepts.
 - After a recipe is generated, you can either choose `accept` or `regenerate`. Once you accept the recipe, the system would remove the ingredients used in the recipe from the available ingredients database supported by LangChain SQL AI Agent.
 - By clicking the `Add Ingredients`, you can add ingredients to the system.
-
-
 
 
 
@@ -72,7 +76,7 @@ https://huggingface.co/hfl/llama-3-chinese-8b-instruct-v2
 | Week 9 | Final test and wrap up |
 | week 10 | Documentations and presentation |
 
-# Resources
+<!-- # Resources
 ## convert gguf files to llamafile
 ```
 $ ./llamafile-0.8.8/bin/llamafile-convert Llama3-8B-Chinese-Chat-q8_0-v2_1.gguf
@@ -84,6 +88,5 @@ $ ./Llama3-8B-Chinese-Chat-q8_0-v2_1.llamafile -c 2048 --server --nobrowser
 ```
 
 docker build -t smart-recipe .
-docker run -p 8501:8501 smart-recipe  
-
-# References
+docker run --network host -it smart-recipe /bin/bash
+# References -->
