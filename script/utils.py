@@ -67,13 +67,10 @@ def fetch_food_incompatibilities_content(
 def recommend_dish(
     query, ingredients_context, available_ingredients, incompatibitlies_context
 ):
+    client = OpenAI(base_url="http://127.0.0.1:8080/v1", api_key=openai_api_key)
     # client = OpenAI(
-    #     base_url="http://127.0.0.1:8080/v1",
-    #     api_key=openai_api_key
+    #     api_key=openai_api_key,
     # )
-    client = OpenAI(
-        api_key=openai_api_key,
-    )
     retrieved_docs_text = [doc.page_content for doc in incompatibitlies_context]
     context = "\nExtracted documents:\n"
     context += "".join(
@@ -85,8 +82,7 @@ def recommend_dish(
     RAG_PROMPT_TEMPLATE = [
         {
             "role": "system",
-            "content": """Using the information contained in the context,
-            give a comprehensive answer to the question.
+            "content": """Using the information contained in the context, give a comprehensive answer to the question.
             Respond only to the question asked, response should be concise and relevant to the question.
             Please provide the ingredients and the amount needed for the dish.
             Please provide your answers in Chinese!!!""",
@@ -99,6 +95,7 @@ def recommend_dish(
             我现有的食材:
             {ingredients_context}\n
             ---
+            请你根据上述信息，为我推荐一道菜肴。你可以用剩食材。
             你需要严格通过以下格式返回结果：
             ```
             菜名：
@@ -113,12 +110,14 @@ def recommend_dish(
         },
     ]
     completion = client.chat.completions.create(
-        # model="LLaMA_CPP",
-        model="gpt-3.5-turbo",
+        model="LLaMA_CPP",
+        # model="gpt-3.5-turbo",
         messages=RAG_PROMPT_TEMPLATE,
         # temperature=0.1
     )
-    return completion.choices[0].message.content
+    dish = completion.choices[0].message.content.rstrip("<|eot_id|>")
+    print(dish)
+    return dish
 
 
 def remove_ingredients(dish, ingredients_db_path):

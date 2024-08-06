@@ -26,9 +26,19 @@ def create_database(database_name):
 def insert_ingredient(database_name, name, amount):
     conn = sqlite3.connect(database_name)
     c = conn.cursor()
-    c.execute("INSERT INTO ingredients (name, amount) VALUES (?, ?)", (name, amount))
+    c.execute("SELECT * FROM ingredients WHERE name=?", (name,))
+    result = c.fetchone()  # result: (id[0], name[1], amount[2])
+
+    if result:
+        new_quantity = result[2] + amount
+        c.execute("UPDATE ingredients SET amount=? WHERE name=?", (new_quantity, name))
+    else:
+        c.execute(
+            "INSERT INTO ingredients (name, amount) VALUES (?, ?)", (name, amount)
+        )
     conn.commit()
-    print((name, amount), "Ingredient inserted.")
+    conn.close()
+    # print((name, amount), "Ingredient inserted.")
 
 
 if __name__ == "__main__":

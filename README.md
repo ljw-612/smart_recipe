@@ -9,7 +9,6 @@ https://huggingface.co/hfl/llama-3-chinese-8b-instruct-v2
 
 # Timeline
 
-
 | Week                | Tasks             |
 |---------------------|--------------------|
 | Week 0 | Come up with a project idea and timeline |
@@ -27,6 +26,7 @@ https://huggingface.co/hfl/llama-3-chinese-8b-instruct-v2
 ## convert gguf files to llamafile
 ```
 $ ./llamafile-0.8.8/bin/llamafile-convert Llama3-8B-Chinese-Chat-q8_0-v2_1.gguf
+$ chmod +x Llama3-8B-Chinese-Chat-q8_0-v2_1.llamafile
 ```
 ## Run llamafile (langchain api)
 ```
