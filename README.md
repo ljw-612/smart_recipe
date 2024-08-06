@@ -1,8 +1,16 @@
 # smart recipe
 ![CI](https://github.com/ljw-612/smart_recipe/actions/workflows/main.yml/badge.svg)
 
-# Motivation
+## Final Demo Video
+[Watch the final demo video here]()
+
+## Project Purpose:
 My mom often feels troubled when thinking about what dishes to cook. At the same time, there is a widely recognized concept in traditional Chinese medicine regarding food incompatibility. I want to develop a large model that can recommend recipes while also considering the properties of different foods.
+
+## Architecture Diagram
+
+![Architecture Diagram](.images/architecture.png)
+
 
 # Model
 `Llama-3-Chinese-8B-Instruct-v2-GGUF` is an LLM tuned on `Meta-Llama-3-8B-Instruct`, which can be used for conversation, QA, etc.
