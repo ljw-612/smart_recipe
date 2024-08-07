@@ -11,7 +11,9 @@ RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
 # copy everything to the working directory
 COPY . /app/
-COPY .env /app/
+
+# env variables
+ENV OPENAI_API_KEY="sk-proj-PZk51zPmEemNHQN3hqMIT3BlbkFJFnH1YY4rERRpX4POnfvF"
 
 # expose streamlit port
 EXPOSE 8501
