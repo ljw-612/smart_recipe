@@ -2,7 +2,7 @@ From python:3.8-slim
 
 WORKDIR /app
 
-COPY embeding_model/gte-small /app/embeding_model/gte-small
+# COPY embeding_model/gte-small /app/embeding_model/gte-small
 COPY requirements.txt /app/
 
 # install dependencies
