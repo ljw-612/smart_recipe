@@ -13,7 +13,7 @@ from langchain_community.utilities.sql_database import SQLDatabase
 
 
 load_dotenv(override=True)
-openai_api_key = os.getenv("OPENAI_API_KEY")
+# openai_api_key = os.getenv("OPENAI_API_KEY")
 
 
 def get_ingredients_from_db(db_path):
@@ -66,7 +66,7 @@ def fetch_food_incompatibilities_content(
 
 
 def recommend_dish(
-    query, ingredients_context, available_ingredients, incompatibitlies_context
+    query, ingredients_context, available_ingredients, incompatibitlies_context, openai_api_key
 ):
     base_url = "http://host.docker.internal:8080/v1"
     # base_url = "http://127.0.0.1:8080/v1"
@@ -123,7 +123,7 @@ def recommend_dish(
     return dish
 
 
-def remove_ingredients(dish, ingredients_db_path):
+def remove_ingredients(dish, ingredients_db_path, openai_api_key):
     db = SQLDatabase.from_uri("sqlite:///" + ingredients_db_path)
     llm = ChatOpenAI(
         model="gpt-3.5-turbo",
@@ -149,7 +149,7 @@ def remove_ingredients(dish, ingredients_db_path):
     print("Ingredients removed successfully.")
 
 
-def get_dish(query):
+def get_dish(query, openai_api_key):
     current_dir = os.getcwd()
     ingredients_db_path = os.path.join(current_dir, "data", "ingredients.db")
     food_incompatibilities_db_path = os.path.join(current_dir, "data", "food_incomp")
@@ -169,7 +169,7 @@ def get_dish(query):
 
     print("Recommend dish...\n")
     dish = recommend_dish(
-        query, ingredients_context, available_ingredients, incompatibitlies_context
+        query, ingredients_context, available_ingredients, incompatibitlies_context, openai_api_key
     )
     return dish
 

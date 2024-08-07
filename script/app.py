@@ -10,11 +10,11 @@ from utils import *
 from ingredients import *
 
 load_dotenv(override=True)
-openai_api_key = os.getenv("OPENAI_API_KEY")
+# openai_api_key = os.getenv("OPENAI_API_KEY")
 
 
-def generate_recipe(query):
-    dish = get_dish(query)
+def generate_recipe(query, openai_api_key):
+    dish = get_dish(query, openai_api_key)
     return dish
 
 
@@ -25,8 +25,8 @@ def fetch_db(ingredients_db_path):
     return df
 
 
-def generate_recipe_callback(query):
-    st.session_state["generated_recipe"] = generate_recipe(query)
+def generate_recipe_callback(query, openai_api_key):
+    st.session_state["generated_recipe"] = generate_recipe(query, openai_api_key)
 
 
 def app():
@@ -45,8 +45,11 @@ def app():
     if "generated_recipe" not in st.session_state:
         st.session_state["generated_recipe"] = ""
 
+    st.write("##### Plesae input your openai api key: ")
+    openai_api_key = st.text_input("openai api key")
+
     st.button(
-        "Generate a Recipe for Me", on_click=generate_recipe_callback, args=(query,)
+        "Generate a Recipe for Me", on_click=generate_recipe_callback, args=(query, openai_api_key)
     )
 
     if st.session_state["generated_recipe"]:
@@ -60,13 +63,17 @@ def app():
                 st.success("Ingredients removed from the database....")
                 print(st.session_state["generated_recipe"])
                 remove_ingredients(
-                    st.session_state["generated_recipe"], ingredients_db_path
+                    st.session_state["generated_recipe"],
+                    ingredients_db_path,
+                    openai_api_key=openai_api_key,
                 )
                 st.session_state["generated_recipe"] = ""  # Reset recipe
                 ingredients_table.dataframe(fetch_db(ingredients_db_path))
         with col2:
             if st.button("Regenerate"):
-                st.session_state["generated_recipe"] = generate_recipe(query)
+                st.session_state["generated_recipe"] = generate_recipe(
+                    query, openai_api_key=openai_api_key
+                )
                 st.rerun()
 
     st.write("### Add New Ingredient to the Database")
