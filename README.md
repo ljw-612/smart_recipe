@@ -27,6 +27,7 @@ $ ./Llama3-8B-Chinese-Chat-q8_0-v2_1.llamafile --server --nobrowser
 5. Login to your Docker.
 6. Click on the `Packages` on the right of the repo's main page(https://github.com/ljw-612/smart_recipe).
 pull the image according to the system you are using.
+<!-- docker pull --platform linux/x86_64 ghcr.io/ljw-612/smart-recipe:db1da93853b469362dd7a2192488dc5650369958 -->
 7. Run the following command to start the container:
 ```bash
 $ docker run --network host -it --name smart-recipe IMAGE ID /bin/bash

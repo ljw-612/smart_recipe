@@ -11,6 +11,7 @@ RUN pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 
 # copy everything to the working directory
 COPY . /app/
+COPY .env /app/
 
 # expose streamlit port
 EXPOSE 8501

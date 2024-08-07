@@ -1,2 +1,0 @@
-embedding_model/* filter=lfs diff=lfs merge=lfs -text
-embedding_model/gte-small/* filter=lfs diff=lfs merge=lfs -text
