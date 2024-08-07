@@ -56,13 +56,22 @@ The project has the following features:
 - After a recipe is generated, you can either choose `accept` or `regenerate`. Once you accept the recipe, the system would remove the ingredients used in the recipe from the available ingredients database supported by LangChain SQL AI Agent.
 - By clicking the `Add Ingredients`, you can add ingredients to the system.
 
+## Naive Evalution
+
+| Avg output speed        | Relevancy     | Overall Quality |
+|---------------------------|--------------------|----|
+| <10 seconds | 100% | Above average |
+
+The system would successfully recommend dishes based on the avaiable ingredients handy. The average response time is less than 10 seconds. The relevancy of the recommended dishes is 100%, everytime the system would return output in an ideal format.
+
+## Unit Tests
+The project has a unit test for testing the performance of database related functions. All test files are stored inside the `tests` folder. To run the unit tests, you can run the following command:
+```bash
+$ pytest
+```
 
 
-## Language Model Used
-`Llama-3-Chinese-8B-Instruct-v2-GGUF` is an LLM tuned on `Meta-Llama-3-8B-Instruct`, which can be used for conversation, QA, etc.
-https://huggingface.co/hfl/llama-3-chinese-8b-instruct-v2
-
-# Timeline
+# Project Timeline
 
 | Week                | Tasks             |
 |---------------------|--------------------|
