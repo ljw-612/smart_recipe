@@ -43,8 +43,8 @@ def fetch_food_incompatibilities_content(
 ):
     EMBEDDING_MODEL_NAME = "thenlper/gte-small"
     embedding_model = HuggingFaceEmbeddings(
-        model_name=EMBEDDING_MODEL_NAME,
-        # model_name=emb_model_path,
+        # model_name=EMBEDDING_MODEL_NAME,
+        model_name=emb_model_path,
         # model_name="../embedding_model/gte-small",
         # multi_process=True,
         # model_kwargs={"device": "cuda"},
@@ -68,8 +68,8 @@ def fetch_food_incompatibilities_content(
 def recommend_dish(
     query, ingredients_context, available_ingredients, incompatibitlies_context, openai_api_key
 ):
-    base_url = "http://host.docker.internal:8080/v1"
-    # base_url = "http://127.0.0.1:8080/v1"
+    # base_url = "http://host.docker.internal:8080/v1"
+    base_url = "http://127.0.0.1:8080/v1"
     client = OpenAI(base_url=base_url, api_key=openai_api_key)
     # client = OpenAI(
     #     api_key=openai_api_key,
